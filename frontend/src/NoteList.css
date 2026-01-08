@@ -1,0 +1,56 @@
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.note-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: #1e1e2e;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2e2e3e;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.note-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: #3e3e5e;
+  transform: translateY(-1px);
+}
+
+.note-text {
+  flex: 1;
+  font-size: 1rem;
+  color: #e4e4e7;
+  word-break: break-word;
+}
+
+.delete-btn {
+  margin-left: 1rem;
+  padding: 0.4rem 0.75rem;
+  background: #3b1d1d;
+  color: #f87171;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.delete-btn:focus {
+  outline: 2px solid #f87171;
+  outline-offset: 2px;
+}
