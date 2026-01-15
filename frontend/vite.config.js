@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [
     react()
   ],
-  base: '/classnotes/',
+  base: '/classnotesweb/',
 })
