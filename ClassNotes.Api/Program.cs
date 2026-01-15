@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        //policy.WithOrigins("http://localhost:5275","http://localhost:5173","https://localhost:7213")
+        //policy.WithOrigins("http://localhost:5173", "https://localhost:7185")
         policy.WithOrigins("https://binmarkoo.github.io")
               .AllowAnyHeader()
               .AllowAnyMethod();
