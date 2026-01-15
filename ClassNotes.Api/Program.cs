@@ -4,42 +4,66 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<NotesDbContext>(options => options.UseSqlite("Data Source= ./Data/notes.db"));
+// SQLite DB
+builder.Services.AddDbContext<NotesDbContext>(options => options.UseSqlite("Data Source=./Data/notes.db"));
 
 // CORS konfigurieren
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        //policy.WithOrigins("http://localhost:5173", "https://localhost:7185")
+        //policy.WithOrigins("http://localhost:5275","http://localhost:5173","https://localhost:7213")
         policy.WithOrigins("https://binmarkoo.github.io")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
-//builder.Services.AddCors();
-
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+// Add Swagger 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.MapOpenApi();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
 
+// CORS aktivieren
 app.UseCors("AllowReactApp");
 
-//app.UseHttpsRedirection();
+# region Old
+//var summaries = new[]
+//{
+//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+//};
 
+//app.MapGet("/weatherforecast", () =>
+//{
+//    var forecast =  Enumerable.Range(1, 5).Select(index =>
+//        new WeatherForecast
+//        (
+//            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+//            Random.Shared.Next(-20, 55),
+//            summaries[Random.Shared.Next(summaries.Length)]
+//        ))
+//        .ToArray();
+//    return forecast;
+//})
+//.WithName("GetWeatherForecast");
+# endregion
+
+// Alle Notizen
 app.MapGet("/notes", async (NotesDbContext db) =>
 {
     return await db.Notes.OrderBy(n => n.Id).ToListAsync();
@@ -68,7 +92,7 @@ app.MapPost("/notes", async (Note note, NotesDbContext db) =>
     return Results.Created($"/notes/{note.Id}", note);
 });
 
-// Notiz loeschen
+// Notiz l�schen
 app.MapDelete("/notes/{id}", async (int id, NotesDbContext db) =>
 {
     var note = await db.Notes.FindAsync(id);
@@ -79,3 +103,8 @@ app.MapDelete("/notes/{id}", async (int id, NotesDbContext db) =>
 });
 
 app.Run();
+
+//record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+//{
+//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+//}
