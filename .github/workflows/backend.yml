@@ -28,8 +28,8 @@ jobs:
       #- name: Build Tests
       #  run: dotnet build --no-restore ClassNotes.Api/ClassNotes.Tests.csproj --configuration Release
 
-      #- name: Test
-      #  run: dotnet test classnotes.sln --no-build --verbosity normal
+      # - name: Test
+      #   run: dotnet test classnotes.sln --no-build --verbosity normal
       # dotnet test ClassNotes.Api/ClassNotes.Tests.csproj
 
     - name: Publish
@@ -39,7 +39,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'classnotesweb' # Replace with your Azure Web App name
-        # Select "Download publish profile" from Azure portal 
+        # Select "Download publish profile" from Azure portal
         # and add the content to the repository secrets as AZURE_WEBAPP_PUBLISH_PROFILE
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
