@@ -77,12 +77,3 @@ ClassNotes/
 ├── 🎨 frontend/           # React + Vite
 │   └── 🧩 src/            # AddNoteForm, NoteList, API-Client
 └── 🤖 .github/workflows/  # CI (Backend + Frontend)
-```
-
----
-
-<div align="center">
-
-*Klein, aber oho. 💪*
-
-</div>
